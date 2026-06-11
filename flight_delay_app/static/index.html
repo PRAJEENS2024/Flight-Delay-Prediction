@@ -11,12 +11,18 @@
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/style.css?v=3">
+    <link rel="stylesheet" href="/style.css?v=4">
     <!-- Anti-FOUC: apply saved theme immediately -->
     <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('aeropredict_theme') || 'dark');</script>
 </head>
 <body class="landing-page">
-    <div class="bg-gradient"></div>
+    <!-- Background Flight Video -->
+    <div class="video-bg-wrapper">
+        <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="">
+            <source src="https://videos.pexels.com/video-files/35770564/15165231_2560_1440_60fps.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
     <div class="bg-glow"></div>
 
     <nav class="navbar animate-fade-in">
@@ -71,10 +77,8 @@
             </div>
         </main>
         
-        <footer class="app-footer animate-fade-in">
-            <p>&copy; 2026 AeroPredict Inc. Created with Google Gemini Medium Model.</p>
-        </footer>
+        <!-- Footer removed as per user request -->
     </div>
-    <script src="/script.js?v=3"></script>
+    <script src="/script.js?v=4"></script>
 </body>
 </html>

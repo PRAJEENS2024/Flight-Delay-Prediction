@@ -195,6 +195,17 @@ body {
     transition: background-color 0.4s ease, color 0.4s ease;
 }
 
+.hero-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+}
+
 /* Background animated glow meshes */
 .bg-gradient {
     position: fixed;
@@ -230,7 +241,7 @@ body {
 /* App Container */
 .app-container {
     width: 100%;
-    max-width: 1150px;
+    max-width: 1400px;
     padding: 2.5rem 2rem;
     display: flex;
     flex-direction: column;
@@ -1233,3 +1244,71 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 [data-theme="light"] .risk-low { color: #059669; }
 [data-theme="light"] .risk-med { color: #d97706; }
 [data-theme="light"] .risk-high { color: #dc2626; }
+
+/* ===================================================
+   LANDING PAGE — HERO BACKGROUND VIDEO
+   =================================================== */
+
+.video-bg-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    overflow: hidden;
+}
+
+.hero-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    animation: videoFadeIn 2s ease-in-out forwards;
+    opacity: 0;
+}
+
+@keyframes videoFadeIn {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.video-overlay {
+    position: absolute;
+    inset: 0;
+    /* Cinematic multi-layer overlay — keeps text readable */
+    background:
+        linear-gradient(to bottom, rgba(6, 4, 18, 0.55) 0%, transparent 40%, rgba(6, 4, 18, 0.7) 100%),
+        linear-gradient(to right, rgba(6, 4, 18, 0.4) 0%, transparent 50%, rgba(6, 4, 18, 0.4) 100%),
+        radial-gradient(ellipse at 50% 0%, rgba(99, 102, 241, 0.12) 0%, transparent 60%);
+}
+
+/* Darken the overlay slightly more in light mode so text stays visible */
+[data-theme="light"] .video-overlay {
+    background:
+        linear-gradient(to bottom, rgba(10, 8, 30, 0.72) 0%, rgba(10, 8, 30, 0.45) 50%, rgba(10, 8, 30, 0.75) 100%);
+}
+
+/* When video is present, navbar needs a translucent glass background */
+.landing-page .navbar {
+    background: rgba(9, 7, 20, 0.45);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 0;
+    padding: 1.1rem 2.5rem;
+    position: relative;
+    z-index: 10;
+}
+
+/* Hero text needs a subtle text-shadow against the video */
+.landing-page .hero-title {
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
+}
+
+.landing-page .hero-subtitle {
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+}
