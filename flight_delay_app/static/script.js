@@ -1,3 +1,11 @@
+// ============================================================
+// THEME ENGINE — IIFE runs immediately to prevent flash of wrong theme
+// ============================================================
+(function () {
+    const saved = localStorage.getItem('aeropredict_theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', saved);
+})();
+
 // Global function for password visibility toggle
 function togglePasswordVisibility(inputId, icon) {
     const input = document.getElementById(inputId);
@@ -11,6 +19,41 @@ function togglePasswordVisibility(inputId, icon) {
         icon.classList.add("fa-eye-slash");
     }
 }
+
+// Apply a theme to the document and update button state
+function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('aeropredict_theme', theme);
+
+    // Update the tiny icon inside the sliding thumb
+    const thumbIcon = document.getElementById('theme-icon');
+    if (thumbIcon) {
+        if (theme === 'light') {
+            thumbIcon.className = 'fa-solid fa-sun';
+            thumbIcon.style.fontSize = '8px';
+        } else {
+            thumbIcon.className = 'fa-solid fa-moon';
+            thumbIcon.style.fontSize = '8px';
+        }
+    }
+}
+
+// Wire up theme toggle button — called after DOM is ready
+function initThemeToggle() {
+    const btn = document.getElementById('theme-toggle-btn');
+    if (!btn) return;
+
+    // Sync to saved preference on load
+    const saved = localStorage.getItem('aeropredict_theme') || 'dark';
+    applyTheme(saved);
+
+    btn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme') || 'dark';
+        applyTheme(current === 'dark' ? 'light' : 'dark');
+    });
+}
+
+document.addEventListener('DOMContentLoaded', initThemeToggle);
 
 document.addEventListener("DOMContentLoaded", () => {
     // ---- AUTH LOGIC ----
@@ -198,10 +241,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 const card = document.createElement("div");
                 card.className = "history-card";
                 card.innerHTML = `
-                    <div class="history-route">
-                        ${item.start_airport} <i class="fa-solid fa-arrow-right" style="font-size: 0.8rem; margin: 0 0.5rem; color: var(--primary);"></i> ${item.end_airport}
+                    <div class="history-route" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; font-size: 0.95rem;">
+                        <div style="flex: 1; text-align: left; line-height: 1.3;">
+                            ${item.start_airport.replace(' (', '<br>(')}
+                        </div>
+                        <div style="padding: 0 0.5rem; color: var(--primary); display: flex; align-items: center;">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                        <div style="flex: 1; text-align: left; line-height: 1.3;">
+                            ${item.end_airport.replace(' (', '<br>(')}
+                        </div>
                     </div>
-                    <div class="history-details">
+                    <div class="history-details" style="display: flex; flex-direction: column; gap: 0.4rem;">
                         <span><i class="fa-solid fa-ticket"></i> ${item.carrier}</span>
                         <span><i class="fa-regular fa-calendar"></i> ${item.date} at ${item.time}</span>
                     </div>
@@ -331,7 +382,16 @@ document.addEventListener("DOMContentLoaded", () => {
     function displayResults(data, start, end) {
         // Toggle view
         predictionSection.classList.add("hidden");
+        const historySection = document.getElementById("history-section");
+        if (historySection) historySection.classList.add("hidden");
         resultsSection.classList.remove("hidden");
+
+        // Populate current search details
+        document.getElementById("res-start-airport").textContent = start;
+        document.getElementById("res-end-airport").textContent = end;
+        document.getElementById("res-date").textContent = document.getElementById("date").value;
+        document.getElementById("res-time").textContent = document.getElementById("time").value;
+        document.getElementById("res-carrier").textContent = document.getElementById("carrier").value;
 
         const prob = data.delay_probability;
         const percent = (prob * 100).toFixed(1);
@@ -389,5 +449,7 @@ document.addEventListener("DOMContentLoaded", () => {
     backBtn.addEventListener("click", () => {
         resultsSection.classList.add("hidden");
         predictionSection.classList.remove("hidden");
+        const historySection = document.getElementById("history-section");
+        if (historySection) historySection.classList.remove("hidden");
     });
 });

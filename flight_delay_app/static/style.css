@@ -1,22 +1,178 @@
-/* Root Variables for Premium Aesthetics */
-:root {
+/* ===== DARK THEME (Default) ===== */
+:root,
+[data-theme="dark"] {
     --bg-dark: #090714;
     --card-bg: rgba(22, 17, 43, 0.55);
     --border-color: rgba(255, 255, 255, 0.08);
     --border-glow: rgba(124, 58, 237, 0.2);
-    
+
     --primary: #6366f1;
     --primary-glow: rgba(99, 102, 241, 0.3);
     --secondary: #a855f7;
-    
+
     --text-main: #f3f4f6;
     --text-muted: #9ca3af;
-    
+
     --risk-color: #10b981;
     --risk-color-rgb: 16, 185, 129;
-    
+
     --gauge-deg: 0deg;
+
+    /* Background gradients */
+    --bg-gradient-1: rgba(99, 102, 241, 0.08);
+    --bg-gradient-2: rgba(168, 85, 247, 0.08);
+    --bg-gradient-3: rgba(20, 10, 40, 0.8);
+    --bg-gradient-4: #06040c;
+    --bg-glow-color: rgba(99, 102, 241, 0.15);
+
+    /* Input & sub-card surfaces */
+    --input-bg: rgba(12, 10, 24, 0.6);
+    --input-bg-focus: rgba(12, 10, 24, 0.8);
+    --sub-card-bg: rgba(14, 11, 28, 0.6);
+    --gauge-cover-bg: #110e22;
+    --gauge-track-inner: #18152e;
+    --loader-card-bg: rgba(22, 17, 43, 0.9);
+    --weather-item-bg: rgba(255, 255, 255, 0.02);
+    --weather-item-border: rgba(255, 255, 255, 0.03);
+    --history-card-bg: rgba(255, 255, 255, 0.03);
+    --history-card-border: rgba(255, 255, 255, 0.05);
+    --history-card-hover: rgba(255, 255, 255, 0.08);
+    --select-arrow-after: rgba(255,255,255,0);
+    --feature-card-shimmer: rgba(255,255,255,0.05);
 }
+
+/* ===== LIGHT THEME ===== */
+[data-theme="light"] {
+    --bg-dark: #f0f2ff;
+    --card-bg: rgba(255, 255, 255, 0.80);
+    --border-color: rgba(99, 102, 241, 0.15);
+    --border-glow: rgba(99, 102, 241, 0.35);
+
+    --primary: #4f46e5;
+    --primary-glow: rgba(79, 70, 229, 0.25);
+    --secondary: #9333ea;
+
+    --text-main: #1e1b4b;
+    --text-muted: #6b7280;
+
+    --risk-color: #059669;
+    --risk-color-rgb: 5, 150, 105;
+
+    --gauge-deg: 0deg;
+
+    /* Background gradients */
+    --bg-gradient-1: rgba(99, 102, 241, 0.06);
+    --bg-gradient-2: rgba(168, 85, 247, 0.06);
+    --bg-gradient-3: rgba(220, 220, 255, 0.5);
+    --bg-gradient-4: #eef0ff;
+    --bg-glow-color: rgba(99, 102, 241, 0.10);
+
+    /* Input & sub-card surfaces */
+    --input-bg: rgba(238, 240, 255, 0.8);
+    --input-bg-focus: rgba(225, 228, 255, 0.95);
+    --sub-card-bg: rgba(240, 242, 255, 0.9);
+    --gauge-cover-bg: #f5f3ff;
+    --gauge-track-inner: #e0e7ff;
+    --loader-card-bg: rgba(255, 255, 255, 0.95);
+    --weather-item-bg: rgba(99, 102, 241, 0.04);
+    --weather-item-border: rgba(99, 102, 241, 0.1);
+    --history-card-bg: rgba(99, 102, 241, 0.04);
+    --history-card-border: rgba(99, 102, 241, 0.12);
+    --history-card-hover: rgba(99, 102, 241, 0.10);
+    --feature-card-shimmer: rgba(255,255,255,0.8);
+}
+
+/* ===== Theme Toggle — Clean Pill Switch ===== */
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 3px;
+    outline: none;
+    border-radius: 50px;
+    transition: box-shadow 0.3s ease;
+}
+
+.theme-toggle:focus-visible {
+    box-shadow: 0 0 0 3px var(--primary-glow);
+}
+
+.toggle-track {
+    width: 54px;
+    height: 28px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #1e1b4b, #3730a3);
+    border: 2px solid rgba(99, 102, 241, 0.5);
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.3), inset 0 1px 2px rgba(0,0,0,0.3);
+    flex-shrink: 0;
+}
+
+[data-theme="light"] .toggle-track {
+    background: linear-gradient(135deg, #fde68a, #fbbf24);
+    border-color: rgba(245, 158, 11, 0.6);
+    box-shadow: 0 0 10px rgba(245, 158, 11, 0.4), inset 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.toggle-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #fff;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0;
+    line-height: 0;
+}
+
+.toggle-thumb::before {
+    content: '\f186'; /* FA moon unicode */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    font-size: 9px;
+    color: #4338ca;
+    line-height: 1;
+}
+
+[data-theme="light"] .toggle-thumb {
+    transform: translateX(26px);
+}
+
+[data-theme="light"] .toggle-thumb::before {
+    content: '\f185'; /* FA sun unicode */
+    color: #d97706;
+}
+
+.theme-toggle:hover .toggle-track {
+    transform: scale(1.06);
+    box-shadow: 0 0 16px rgba(99, 102, 241, 0.55), inset 0 1px 2px rgba(0,0,0,0.3);
+}
+
+[data-theme="light"] .theme-toggle:hover .toggle-track {
+    box-shadow: 0 0 16px rgba(245, 158, 11, 0.55);
+}
+
+/* Hide legacy icon elements that might still be in HTML */
+.toggle-moon-icon,
+.toggle-sun-icon,
+#theme-icon {
+    display: none !important;
+    font-size: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+}
+
+
 
 /* Base Styles */
 * {
@@ -36,6 +192,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 /* Background animated glow meshes */
@@ -45,10 +202,11 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.08) 0%, transparent 45%),
-                radial-gradient(circle at 50% 50%, rgba(20, 10, 40, 0.8) 0%, #06040c 100%);
+    background: radial-gradient(circle at 10% 20%, var(--bg-gradient-1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, var(--bg-gradient-2) 0%, transparent 45%),
+                radial-gradient(circle at 50% 50%, var(--bg-gradient-3) 0%, var(--bg-gradient-4) 100%);
     z-index: -2;
+    transition: background 0.5s ease;
 }
 
 .bg-glow {
@@ -57,10 +215,11 @@ body {
     left: 30%;
     width: 500px;
     height: 500px;
-    background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+    background: radial-gradient(circle, var(--bg-glow-color) 0%, transparent 70%);
     filter: blur(50px);
     z-index: -1;
     animation: pulseGlow 15s infinite alternate ease-in-out;
+    transition: background 0.5s ease;
 }
 
 @keyframes pulseGlow {
@@ -71,8 +230,8 @@ body {
 /* App Container */
 .app-container {
     width: 100%;
-    max-width: 900px;
-    padding: 2.5rem 1.5rem;
+    max-width: 1150px;
+    padding: 2.5rem 2rem;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -222,7 +381,7 @@ body {
 select, input {
     width: 100%;
     padding: 1rem 1rem 1rem 2.8rem;
-    background: rgba(12, 10, 24, 0.6);
+    background: var(--input-bg);
     border: 1px solid var(--border-color);
     border-radius: 12px;
     color: var(--text-main);
@@ -254,7 +413,7 @@ select:focus + .select-wrapper::after {
 select:focus, input:focus {
     border-color: var(--primary);
     box-shadow: 0 0 10px rgba(99, 102, 241, 0.2);
-    background: rgba(12, 10, 24, 0.8);
+    background: var(--input-bg-focus);
 }
 
 select:focus ~ .input-icon, input:focus ~ .input-icon {
@@ -328,14 +487,14 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 }
 
 .loader-card {
-    background: rgba(22, 17, 43, 0.9);
+    background: var(--loader-card-bg);
     border: 1px solid var(--border-glow);
     border-radius: 24px;
     padding: 3rem;
     text-align: center;
     max-width: 450px;
     width: 90%;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
 }
 
 .radar-spin {
@@ -434,7 +593,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 }
 
 .back-btn {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--history-card-bg);
     border: 1px solid var(--border-color);
     padding: 0.5rem 1rem;
     border-radius: 8px;
@@ -449,7 +608,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 }
 
 .back-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--history-card-hover);
     border-color: var(--text-muted);
 }
 
@@ -476,12 +635,12 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     width: 200px;
     height: 200px;
     border-radius: 50%;
-    background: conic-gradient(from 180deg, var(--risk-color) 0deg, var(--risk-color) var(--gauge-deg), #18152e var(--gauge-deg), #18152e 360deg);
+    background: conic-gradient(from 180deg, var(--risk-color) 0deg, var(--risk-color) var(--gauge-deg), var(--gauge-track-inner) var(--gauge-deg), var(--gauge-track-inner) 360deg);
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 1.5rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     transition: background 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -489,12 +648,13 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     width: 170px;
     height: 170px;
     border-radius: 50%;
-    background: #110e22;
+    background: var(--gauge-cover-bg);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.2);
+    transition: background 0.5s ease;
 }
 
 .gauge-percent {
@@ -537,10 +697,11 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 }
 
 .sub-card {
-    background: rgba(14, 11, 28, 0.6);
+    background: var(--sub-card-bg);
     border: 1px solid var(--border-color);
     border-radius: 14px;
     padding: 1.2rem 1.5rem;
+    transition: background 0.3s ease;
 }
 
 .sub-card h4 {
@@ -585,8 +746,8 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     display: flex;
     align-items: center;
     gap: 0.8rem;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.03);
+    background: var(--weather-item-bg);
+    border: 1px solid var(--weather-item-border);
     padding: 0.6rem 0.8rem;
     border-radius: 8px;
 }
@@ -831,7 +992,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 
 /* Auth Pages */
 .auth-page .auth-container {
-    max-width: 450px;
+    max-width: 560px;
     justify-content: center;
 }
 
@@ -913,8 +1074,8 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 }
 
 .history-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: var(--history-card-bg);
+    border: 1px solid var(--history-card-border);
     border-radius: 8px;
     padding: 1rem;
     cursor: pointer;
@@ -922,7 +1083,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 }
 
 .history-card:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--history-card-hover);
     border-color: var(--primary);
     transform: translateY(-2px);
 }
@@ -957,3 +1118,118 @@ input[type="time"]::-webkit-calendar-picker-indicator {
         gap: 1rem;
     }
 }
+
+/* ===================================================
+   LIGHT THEME OVERRIDES
+   All elements that need explicit light-mode styling
+   =================================================== */
+
+[data-theme="light"] body {
+    background-color: var(--bg-dark);
+}
+
+/* Cards */
+[data-theme="light"] .card {
+    background: rgba(255, 255, 255, 0.88);
+    border-color: rgba(99, 102, 241, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(79, 70, 229, 0.08),
+                inset 0 1px 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+[data-theme="light"] .card:hover {
+    box-shadow: 0 12px 40px 0 rgba(79, 70, 229, 0.14),
+                inset 0 1px 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* Sub-cards */
+[data-theme="light"] .sub-card {
+    background: rgba(238, 240, 255, 0.85);
+    border-color: rgba(99, 102, 241, 0.15);
+}
+
+/* Select and input overrides */
+[data-theme="light"] select,
+[data-theme="light"] input {
+    color: #1e1b4b;
+    border-color: rgba(99, 102, 241, 0.25);
+}
+
+[data-theme="light"] select option {
+    background: #f5f3ff;
+    color: #1e1b4b;
+}
+
+/* Loader overlay */
+[data-theme="light"] .loading-overlay {
+    background: rgba(240, 242, 255, 0.85);
+}
+
+/* Back button */
+[data-theme="light"] .back-btn {
+    color: #1e1b4b;
+}
+
+/* Feature cards on landing page */
+[data-theme="light"] .feature-card {
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba(99, 102, 241, 0.15);
+    box-shadow: 0 4px 16px rgba(99, 102, 241, 0.06);
+}
+
+/* Hero title gradient in light mode */
+[data-theme="light"] .hero-title {
+    background: linear-gradient(to right, #1e1b4b, #7c3aed);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Nav buttons */
+[data-theme="light"] .btn-ghost {
+    color: #1e1b4b;
+}
+
+[data-theme="light"] .btn-ghost:hover {
+    background: rgba(99, 102, 241, 0.08);
+}
+
+/* Auth switch link text */
+[data-theme="light"] .auth-switch {
+    color: #6b7280;
+}
+
+/* Brand tagline */
+[data-theme="light"] .brand-tagline {
+    color: #6b7280;
+}
+
+/* Logout button */
+[data-theme="light"] .btn-secondary {
+    background: rgba(99, 102, 241, 0.08);
+    border-color: rgba(99, 102, 241, 0.2);
+    color: #1e1b4b;
+}
+
+[data-theme="light"] .btn-secondary:hover {
+    background: rgba(99, 102, 241, 0.15);
+}
+
+/* Footer */
+[data-theme="light"] .app-footer {
+    color: #9ca3af;
+}
+
+/* History cards */
+[data-theme="light"] .history-card {
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.06);
+}
+
+/* Weather item icons stay colorful in light mode */
+[data-theme="light"] .weather-icon.temp { color: #dc2626; }
+[data-theme="light"] .weather-icon.wind { color: #059669; }
+[data-theme="light"] .weather-icon.rain { color: #2563eb; }
+[data-theme="light"] .weather-icon.snow { color: #7c3aed; }
+
+/* Risk colors stay consistent */
+[data-theme="light"] .risk-low { color: #059669; }
+[data-theme="light"] .risk-med { color: #d97706; }
+[data-theme="light"] .risk-high { color: #dc2626; }

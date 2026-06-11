@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,18 +11,27 @@
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/style.css?v=3">
+    <!-- Anti-FOUC: apply saved theme immediately -->
+    <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('aeropredict_theme') || 'dark');</script>
 </head>
 <body class="landing-page">
     <div class="bg-gradient"></div>
     <div class="bg-glow"></div>
 
     <nav class="navbar animate-fade-in">
-        <div class="logo">
+        <a href="/" class="logo" style="text-decoration: none;">
             <i class="fa-solid fa-plane-departure brand-icon"></i>
             <span class="brand-name">Aero<span>Predict</span></span>
-        </div>
-        <div class="nav-links">
+        </a>
+        <div class="nav-links" style="display: flex; align-items: center; gap: 1rem;">
+            <button class="theme-toggle" id="theme-toggle-btn" aria-label="Toggle dark/light mode" title="Toggle theme">
+                <div class="toggle-track">
+                    <div class="toggle-thumb">
+                        <i class="fa-solid fa-moon" id="theme-icon"></i>
+                    </div>
+                </div>
+            </button>
             <a href="/login" class="nav-btn btn-ghost">Log In</a>
             <a href="/signup" class="nav-btn btn-primary">Sign Up</a>
         </div>
@@ -66,5 +75,6 @@
             <p>&copy; 2026 AeroPredict Inc. Created with Google Gemini Medium Model.</p>
         </footer>
     </div>
+    <script src="/script.js?v=3"></script>
 </body>
 </html>

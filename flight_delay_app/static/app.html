@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +11,9 @@
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/style.css?v=3">
+    <!-- Anti-FOUC: apply saved theme immediately -->
+    <script>document.documentElement.setAttribute('data-theme', localStorage.getItem('aeropredict_theme') || 'dark');</script>
 </head>
 <body>
     <div class="bg-gradient"></div>
@@ -21,16 +23,23 @@
         <!-- Header Section -->
         <header class="app-header animate-fade-in">
             <div class="header-top" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                <div class="logo" style="margin-bottom: 0;">
+                <a href="/" class="logo logo-link" style="margin-bottom: 0; text-decoration: none;">
                     <i class="fa-solid fa-plane-departure brand-icon"></i>
                     <span class="brand-name">Aero<span>Predict</span></span>
-                </div>
+                </a>
                 <div class="user-profile" style="display: flex; align-items: center; gap: 1rem;">
+                    <button class="theme-toggle" id="theme-toggle-btn" aria-label="Toggle dark/light mode" title="Toggle theme">
+                        <div class="toggle-track">
+                            <div class="toggle-thumb">
+                                <i class="fa-solid fa-moon" id="theme-icon"></i>
+                            </div>
+                        </div>
+                    </button>
                     <span id="welcome-message" style="color: var(--text-muted); font-size: 0.95rem;">Welcome, <strong id="user-name-display" style="color: var(--text-main);">...</strong></span>
                     <button id="logout-btn" class="nav-btn btn-secondary" style="padding: 0.4rem 1rem; font-size: 0.85rem; cursor: pointer;">Logout</button>
                 </div>
             </div>
-            <p class="brand-tagline">AI-Powered Flight Delay Forecasting & Real-Time Weather Integration</p>
+            <p class="brand-tagline">AI-Powered Flight Delay Forecasting &amp; Real-Time Weather Integration</p>
         </header>
 
         <main class="main-content">
@@ -137,6 +146,26 @@
                     <h2>Prediction Dashboard</h2>
                 </div>
 
+                <!-- Current Search Overview -->
+                <div class="sub-card" style="margin-bottom: 2rem; background: rgba(99, 102, 241, 0.05); border-color: rgba(99, 102, 241, 0.2);">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                        <div style="flex: 1; text-align: left; font-size: 1.1rem; font-weight: 600;">
+                            <i class="fa-solid fa-plane-departure" style="color: var(--primary); margin-right: 0.5rem;"></i> <span id="res-start-airport">--</span>
+                        </div>
+                        <div style="padding: 0 1rem; color: var(--primary);">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </div>
+                        <div style="flex: 1; text-align: right; font-size: 1.1rem; font-weight: 600;">
+                            <span id="res-end-airport">--</span> <i class="fa-solid fa-plane-arrival" style="color: var(--primary); margin-left: 0.5rem;"></i>
+                        </div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; color: var(--text-muted); font-size: 0.95rem; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1rem;">
+                        <span><i class="fa-regular fa-calendar" style="margin-right: 0.3rem;"></i> <span id="res-date">--</span></span>
+                        <span><i class="fa-regular fa-clock" style="margin-right: 0.3rem;"></i> <span id="res-time">--</span></span>
+                        <span><i class="fa-solid fa-ticket" style="margin-right: 0.3rem;"></i> <span id="res-carrier">--</span></span>
+                    </div>
+                </div>
+
                 <div class="results-grid">
                     <!-- Gauge Score -->
                     <div class="gauge-container">
@@ -220,6 +249,6 @@
     </div>
 
     <!-- Custom Script -->
-    <script src="/script.js"></script>
+    <script src="/script.js?v=3"></script>
 </body>
 </html>
