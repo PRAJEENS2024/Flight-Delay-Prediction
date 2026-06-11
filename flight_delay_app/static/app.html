@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AeroPredict | Advanced Flight Delay Forecasting</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="bg-gradient"></div>
+    <div class="bg-glow"></div>
+
+    <div class="app-container">
+        <!-- Header Section -->
+        <header class="app-header animate-fade-in">
+            <div class="header-top" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <div class="logo" style="margin-bottom: 0;">
+                    <i class="fa-solid fa-plane-departure brand-icon"></i>
+                    <span class="brand-name">Aero<span>Predict</span></span>
+                </div>
+                <div class="user-profile" style="display: flex; align-items: center; gap: 1rem;">
+                    <span id="welcome-message" style="color: var(--text-muted); font-size: 0.95rem;">Welcome, <strong id="user-name-display" style="color: var(--text-main);">...</strong></span>
+                    <button id="logout-btn" class="nav-btn btn-secondary" style="padding: 0.4rem 1rem; font-size: 0.85rem; cursor: pointer;">Logout</button>
+                </div>
+            </div>
+            <p class="brand-tagline">AI-Powered Flight Delay Forecasting & Real-Time Weather Integration</p>
+        </header>
+
+        <main class="main-content">
+            <!-- Form Card -->
+            <section class="card form-card animate-slide-up" id="prediction-section">
+                <div class="card-header">
+                    <i class="fa-solid fa-route card-icon"></i>
+                    <h2>Configure Your Flight</h2>
+                </div>
+                <form id="delay-form">
+                    <div class="form-grid">
+                        <!-- Origin Airport -->
+                        <div class="input-group">
+                            <label for="start_airport">Starting Airport</label>
+                            <div class="select-wrapper">
+                                <i class="fa-solid fa-location-dot input-icon"></i>
+                                <select id="start_airport" required>
+                                    <option value="" disabled selected>Select Origin Airport...</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Destination Airport -->
+                        <div class="input-group">
+                            <label for="end_airport">Ending Airport</label>
+                            <div class="select-wrapper">
+                                <i class="fa-solid fa-location-crosshairs input-icon"></i>
+                                <select id="end_airport" required>
+                                    <option value="" disabled selected>Select Destination Airport...</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Airline Carrier -->
+                        <div class="input-group full-width">
+                            <label for="carrier">Airline Carrier</label>
+                            <div class="select-wrapper">
+                                <i class="fa-solid fa-ticket input-icon"></i>
+                                <select id="carrier" required>
+                                    <option value="" disabled selected>Select Carrier...</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Date -->
+                        <div class="input-group">
+                            <label for="date">Departure Date</label>
+                            <div class="input-wrapper">
+                                <i class="fa-solid fa-calendar-days input-icon"></i>
+                                <input type="date" id="date" required>
+                            </div>
+                        </div>
+
+                        <!-- Time -->
+                        <div class="input-group">
+                            <label for="time">Scheduled Departure Time</label>
+                            <div class="input-wrapper">
+                                <i class="fa-solid fa-clock input-icon"></i>
+                                <input type="time" id="time" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submit-btn">
+                        <span>Predict Delay Probability</span>
+                        <i class="fa-solid fa-circle-arrow-right btn-icon"></i>
+                    </button>
+                </form>
+            </section>
+
+            <!-- Recent Searches Card -->
+            <section class="card form-card animate-slide-up" id="history-section" style="margin-top: 2rem;">
+                <div class="card-header">
+                    <i class="fa-solid fa-clock-rotate-left card-icon"></i>
+                    <h2>Recent Searches</h2>
+                </div>
+                <div id="history-list" class="history-grid">
+                    <p class="history-empty" style="color: var(--text-muted); text-align: center; padding: 1rem;">No recent searches found.</p>
+                </div>
+            </section>
+
+            <!-- Loading overlay -->
+            <div class="loading-overlay hidden" id="loading-overlay">
+                <div class="loader-card">
+                    <div class="radar-spin">
+                        <div class="radar-line"></div>
+                    </div>
+                    <h3 id="loader-title">Analyzing Flight Schedule</h3>
+                    <ul class="loader-steps">
+                        <li id="step-coords" class="pending"><i class="fa-solid fa-circle-notch fa-spin"></i> Resolving coordinates...</li>
+                        <li id="step-weather" class="pending"><i class="fa-solid fa-circle-notch"></i> Fetching live weather forecasts...</li>
+                        <li id="step-distance" class="pending"><i class="fa-solid fa-circle-notch"></i> Computing geodesic distance...</li>
+                        <li id="step-model" class="pending"><i class="fa-solid fa-circle-notch"></i> Executing LightGBM model...</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Results Card -->
+            <section class="card results-card hidden animate-slide-up" id="results-section">
+                <div class="results-header">
+                    <button class="back-btn" id="back-btn">
+                        <i class="fa-solid fa-arrow-left"></i> Modify Flight
+                    </button>
+                    <h2>Prediction Dashboard</h2>
+                </div>
+
+                <div class="results-grid">
+                    <!-- Gauge Score -->
+                    <div class="gauge-container">
+                        <div class="gauge-card">
+                            <div class="gauge-track">
+                                <div class="gauge-fill" id="gauge-fill"></div>
+                                <div class="gauge-cover">
+                                    <span class="gauge-percent" id="gauge-value">0%</span>
+                                    <span class="gauge-label">Delay Risk</span>
+                                </div>
+                            </div>
+                            <h3 id="risk-category" class="risk-low">Low Risk</h3>
+                            <p id="risk-desc">Your flight is highly likely to depart on schedule.</p>
+                        </div>
+                    </div>
+
+                    <!-- Metrics details -->
+                    <div class="metrics-details">
+                        <!-- Flight Details Card -->
+                        <div class="sub-card flight-metrics">
+                            <h4><i class="fa-solid fa-plane-departure"></i> Flight Details</h4>
+                            <div class="metric-row">
+                                <span class="label">Distance:</span>
+                                <span class="value" id="res-distance">Calculating...</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="label">Distance Group:</span>
+                                <span class="value" id="res-dist-group">--</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="label">Departure Block:</span>
+                                <span class="value" id="res-dep-block">--</span>
+                            </div>
+                        </div>
+
+                        <!-- Weather Details Card -->
+                        <div class="sub-card weather-metrics">
+                            <h4><i class="fa-solid fa-cloud-sun"></i> Origin Airport Weather</h4>
+                            <div class="weather-grid-details">
+                                <div class="weather-item">
+                                    <i class="fa-solid fa-temperature-high weather-icon temp"></i>
+                                    <div class="weather-data">
+                                        <span class="label">Max Temp</span>
+                                        <span class="value" id="res-tmax">--</span>
+                                    </div>
+                                </div>
+                                <div class="weather-item">
+                                    <i class="fa-solid fa-wind weather-icon wind"></i>
+                                    <div class="weather-data">
+                                        <span class="label">Wind Speed</span>
+                                        <span class="value" id="res-wind">--</span>
+                                    </div>
+                                </div>
+                                <div class="weather-item">
+                                    <i class="fa-solid fa-cloud-rain weather-icon rain"></i>
+                                    <div class="weather-data">
+                                        <span class="label">Precipitation</span>
+                                        <span class="value" id="res-prcp">--</span>
+                                    </div>
+                                </div>
+                                <div class="weather-item">
+                                    <i class="fa-solid fa-snowflake weather-icon snow"></i>
+                                    <div class="weather-data">
+                                        <span class="label">Snowfall</span>
+                                        <span class="value" id="res-snow">--</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="fallback-note hidden" id="weather-fallback-note">
+                                <i class="fa-solid fa-circle-exclamation"></i> Real-time weather API offline. Using fallback seasonal statistics.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer class="app-footer animate-fade-in">
+            <p>&copy; 2026 AeroPredict Inc. Created with Google Gemini Medium Model.</p>
+        </footer>
+    </div>
+
+    <!-- Custom Script -->
+    <script src="/script.js"></script>
+</body>
+</html>

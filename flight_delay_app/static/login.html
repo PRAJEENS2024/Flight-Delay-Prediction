@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In | AeroPredict</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="auth-page">
+    <div class="bg-gradient"></div>
+    <div class="bg-glow"></div>
+
+    <div class="app-container auth-container">
+        <header class="app-header animate-fade-in">
+            <a href="/" class="logo logo-link">
+                <i class="fa-solid fa-plane-departure brand-icon"></i>
+                <span class="brand-name">Aero<span>Predict</span></span>
+            </a>
+            <a href="/" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+        </header>
+
+        <main class="main-content">
+            <section class="card form-card animate-slide-up" id="auth-section">
+                <div class="card-header">
+                    <i class="fa-solid fa-user-lock card-icon"></i>
+                    <h2>Welcome Back</h2>
+                    <p class="auth-subtitle">Log in to your account</p>
+                </div>
+                <form id="login-form">
+                    <div class="form-grid auth-grid">
+                        <div class="input-group full-width">
+                            <label for="email">Email Address</label>
+                            <div class="input-wrapper">
+                                <i class="fa-solid fa-envelope input-icon"></i>
+                                <input type="email" id="email" required placeholder="you@example.com">
+                            </div>
+                        </div>
+
+                        <div class="input-group full-width">
+                            <label for="password">Password</label>
+                            <div class="input-wrapper">
+                                <i class="fa-solid fa-lock input-icon"></i>
+                                <input type="password" id="password" required placeholder="••••••••">
+                                <i class="fa-solid fa-eye-slash toggle-password" onclick="togglePasswordVisibility('password', this)"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="auth-error" class="auth-error hidden"></div>
+
+                    <button type="submit" class="submit-btn" id="login-btn">
+                        <span>Log In</span>
+                        <i class="fa-solid fa-arrow-right-to-bracket btn-icon"></i>
+                    </button>
+                    
+                    <p class="auth-switch">Don't have an account? <a href="/signup">Sign up</a></p>
+                </form>
+            </section>
+        </main>
+    </div>
+
+    <!-- Custom Script for Auth -->
+    <script src="/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+{
+  "airports": {
+    "Bagdogra Airport (Siliguri)": {
+      "latitude": 26.6812,
+      "longitude": 88.3286
+    },
+    "Biju Patnaik International Airport (Bhubaneswar)": {
+      "latitude": 20.2444,
+      "longitude": 85.8178
+    },
+    "Birsa Munda Airport (Ranchi)": {
+      "latitude": 23.3142,
+      "longitude": 85.3218
+    },
+    "Calicut International Airport (Kozhikode)": {
+      "latitude": 11.1368,
+      "longitude": 75.9502
+    },
+    "Chandigarh International Airport (Chandigarh)": {
+      "latitude": 30.6733,
+      "longitude": 76.7885
+    },
+    "Chaudhary Charan Singh International Airport (Lucknow)": {
+      "latitude": 26.7606,
+      "longitude": 80.8893
+    },
+    "Chennai International Airport (Chennai)": {
+      "latitude": 12.9941,
+      "longitude": 80.1709
+    },
+    "Chhatrapati Shivaji Maharaj International Airport (Mumbai)": {
+      "latitude": 19.0896,
+      "longitude": 72.8656
+    },
+    "Cochin International Airport (Kochi)": {
+      "latitude": 10.152,
+      "longitude": 76.4019
+    },
+    "Coimbatore International Airport (Coimbatore)": {
+      "latitude": 11.03,
+      "longitude": 77.0434
+    },
+    "Dehradun Airport (Dehradun)": {
+      "latitude": 30.1897,
+      "longitude": 78.1803
+    },
+    "Devi Ahilyabai Holkar Airport (Indore)": {
+      "latitude": 22.7217,
+      "longitude": 75.8011
+    },
+    "Dr. Babasaheb Ambedkar International Airport (Nagpur)": {
+      "latitude": 21.0922,
+      "longitude": 79.0472
+    },
+    "Goa International Airport (Dabolim)": {
+      "latitude": 15.3808,
+      "longitude": 73.8314
+    },
+    "Imphal Airport (Imphal)": {
+      "latitude": 24.76,
+      "longitude": 93.8967
+    },
+    "Indira Gandhi International Airport (Delhi)": {
+      "latitude": 28.5562,
+      "longitude": 77.1
+    },
+    "Jaipur International Airport (Jaipur)": {
+      "latitude": 26.8242,
+      "longitude": 75.8122
+    },
+    "Jammu Airport (Jammu)": {
+      "latitude": 32.689,
+      "longitude": 74.8377
+    },
+    "Jodhpur Airport (Jodhpur)": {
+      "latitude": 26.2512,
+      "longitude": 73.0489
+    },
+    "Kempegowda International Airport (Bangalore)": {
+      "latitude": 13.1986,
+      "longitude": 77.7066
+    },
+    "Kushok Bakula Rimpochee Airport (Leh)": {
+      "latitude": 34.1359,
+      "longitude": 77.5464
+    },
+    "Lal Bahadur Shastri International Airport (Varanasi)": {
+      "latitude": 25.452,
+      "longitude": 82.8584
+    },
+    "Lokpriya Gopinath Bordoloi International Airport (Guwahati)": {
+      "latitude": 26.1061,
+      "longitude": 91.5859
+    },
+    "Madurai Airport (Madurai)": {
+      "latitude": 9.8344,
+      "longitude": 78.0934
+    },
+    "Mangaluru International Airport (Mangalore)": {
+      "latitude": 12.9612,
+      "longitude": 74.8891
+    },
+    "Manohar International Airport (Mopa)": {
+      "latitude": 15.7289,
+      "longitude": 73.8642
+    },
+    "Netaji Subhash Chandra Bose International Airport (Kolkata)": {
+      "latitude": 22.6547,
+      "longitude": 88.4467
+    },
+    "Patna Airport (Patna)": {
+      "latitude": 25.5912,
+      "longitude": 85.0878
+    },
+    "Pune Airport (Pune)": {
+      "latitude": 18.5822,
+      "longitude": 73.9197
+    },
+    "Rajiv Gandhi International Airport (Hyderabad)": {
+      "latitude": 17.2403,
+      "longitude": 78.4294
+    },
+    "Rajkot Airport (Rajkot)": {
+      "latitude": 22.3092,
+      "longitude": 70.7794
+    },
+    "Sardar Vallabhbhai Patel International Airport (Ahmedabad)": {
+      "latitude": 23.0772,
+      "longitude": 72.6347
+    },
+    "Sheikh ul-Alam International Airport (Srinagar)": {
+      "latitude": 33.9873,
+      "longitude": 74.7744
+    },
+    "Shirdi Airport (Shirdi)": {
+      "latitude": 19.6917,
+      "longitude": 74.3794
+    },
+    "Surat Airport (Surat)": {
+      "latitude": 21.1139,
+      "longitude": 72.7414
+    },
+    "Swami Vivekananda Airport (Raipur)": {
+      "latitude": 21.1804,
+      "longitude": 81.7388
+    },
+    "Tiruchirappalli International Airport (Trichy)": {
+      "latitude": 10.7653,
+      "longitude": 78.7094
+    },
+    "Trivandrum International Airport (Thiruvananthapuram)": {
+      "latitude": 8.4821,
+      "longitude": 76.92
+    },
+    "Vadodara Airport (Vadodara)": {
+      "latitude": 22.336,
+      "longitude": 73.226
+    },
+    "Visakhapatnam Airport (Visakhapatnam)": {
+      "latitude": 17.7214,
+      "longitude": 83.2245
+    }
+  },
+  "carriers": [
+    "Air India",
+    "Air India Express",
+    "Akasa Air",
+    "Alliance Air",
+    "Fly91",
+    "IndiGo",
+    "SpiceJet",
+    "Star Air",
+    "Vistara"
+  ]
+}
