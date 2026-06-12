@@ -19,15 +19,44 @@
     <div class="bg-gradient"></div>
     <div class="bg-glow"></div>
 
-    <div class="app-container">
-        <!-- Header Section -->
-        <header class="app-header animate-fade-in">
-            <div class="header-top" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                <a href="/" class="logo logo-link" style="margin-bottom: 0; text-decoration: none;">
+    <div class="dashboard-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar animate-fade-in">
+            <div class="sidebar-header">
+                <a href="/" class="logo" style="text-decoration: none;">
                     <i class="fa-solid fa-plane-departure brand-icon"></i>
                     <span class="brand-name">Aero<span>Predict</span></span>
                 </a>
-                <div class="user-profile" style="display: flex; align-items: center; gap: 1rem;">
+            </div>
+            
+            <nav class="sidebar-nav">
+                <button class="sidebar-btn active" data-tab="forecast-tab">
+                    <i class="fa-solid fa-radar"></i>
+                    <span>Forecast Tool</span>
+                </button>
+                <button class="sidebar-btn" data-tab="liveboard-tab">
+                    <i class="fa-solid fa-plane-up"></i>
+                    <span>Live Flight Board</span>
+                </button>
+                <button class="sidebar-btn" data-tab="analytics-tab">
+                    <i class="fa-solid fa-chart-simple"></i>
+                    <span>Airport Analytics</span>
+                </button>
+                <button class="sidebar-btn" data-tab="guide-tab">
+                    <i class="fa-solid fa-compass"></i>
+                    <span>Travel Guide</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="sidebar-user-card">
+                    <div class="user-avatar" id="user-avatar-initial">A</div>
+                    <div class="user-details">
+                        <span class="name" id="sidebar-user-name">Welcome, <strong id="user-name-display">...</strong></span>
+                        <span class="role">Passenger Account</span>
+                    </div>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 0.5rem;">
                     <button class="theme-toggle" id="theme-toggle-btn" aria-label="Toggle dark/light mode" title="Toggle theme">
                         <div class="toggle-track">
                             <div class="toggle-thumb">
@@ -35,215 +64,501 @@
                             </div>
                         </div>
                     </button>
-                    <span id="welcome-message" style="color: var(--text-muted); font-size: 0.95rem;">Welcome, <strong id="user-name-display" style="color: var(--text-main);">...</strong></span>
                     <button id="logout-btn" class="nav-btn btn-secondary" style="padding: 0.4rem 1rem; font-size: 0.85rem; cursor: pointer;">Logout</button>
                 </div>
             </div>
-            <p class="brand-tagline">AI-Powered Flight Delay Forecasting &amp; Real-Time Weather Integration</p>
-        </header>
+        </aside>
 
-        <main class="main-content">
-            <!-- Form Card -->
-            <section class="card form-card animate-slide-up" id="prediction-section">
-                <div class="card-header">
-                    <i class="fa-solid fa-route card-icon"></i>
-                    <h2>Configure Your Flight</h2>
+        <!-- Main Dashboard Content -->
+        <main class="dashboard-content">
+            
+            <!-- TAB 1: FORECAST TOOL -->
+            <div id="forecast-tab" class="tab-panel active">
+                <header class="app-header animate-fade-in" style="text-align: left; margin-bottom: 2rem;">
+                    <h1 style="font-family: 'Outfit', sans-serif; font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem;">Delay Forecaster</h1>
+                    <p class="brand-tagline">AI-Powered Flight Delay Forecasting &amp; Real-Time Weather Integration</p>
+                </header>
+
+                <!-- Form Card -->
+                <section class="card form-card animate-slide-up" id="prediction-section">
+                    <div class="card-header">
+                        <i class="fa-solid fa-route card-icon"></i>
+                        <h2>Configure Your Flight</h2>
+                    </div>
+                    <form id="delay-form">
+                        <div class="form-grid">
+                            <!-- Origin Airport -->
+                            <div class="input-group">
+                                <label for="start_airport">Starting Airport</label>
+                                <div class="select-wrapper">
+                                    <i class="fa-solid fa-location-dot input-icon"></i>
+                                    <select id="start_airport" required>
+                                        <option value="" disabled selected>Select Origin Airport...</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Destination Airport -->
+                            <div class="input-group">
+                                <label for="end_airport">Ending Airport</label>
+                                <div class="select-wrapper">
+                                    <i class="fa-solid fa-location-crosshairs input-icon"></i>
+                                    <select id="end_airport" required>
+                                        <option value="" disabled selected>Select Destination Airport...</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Airline Carrier -->
+                            <div class="input-group full-width">
+                                <label for="carrier">Airline Carrier</label>
+                                <div class="select-wrapper">
+                                    <i class="fa-solid fa-ticket input-icon"></i>
+                                    <select id="carrier" required>
+                                        <option value="" disabled selected>Select Carrier...</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Date -->
+                            <div class="input-group">
+                                <label for="date">Departure Date</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-calendar-days input-icon"></i>
+                                    <input type="date" id="date" required>
+                                </div>
+                            </div>
+
+                            <!-- Time -->
+                            <div class="input-group">
+                                <label for="time">Scheduled Departure Time</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-clock input-icon"></i>
+                                    <input type="time" id="time" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn" id="submit-btn">
+                            <span>Predict Delay Probability</span>
+                            <i class="fa-solid fa-circle-arrow-right btn-icon"></i>
+                        </button>
+                    </form>
+                </section>
+
+                <!-- Recent Searches Card -->
+                <section class="card form-card animate-slide-up" id="history-section" style="margin-top: 2rem;">
+                    <div class="card-header">
+                        <i class="fa-solid fa-clock-rotate-left card-icon"></i>
+                        <h2>Recent Searches</h2>
+                    </div>
+                    <div id="history-list" class="history-grid">
+                        <p class="history-empty" style="color: var(--text-muted); text-align: center; padding: 1rem;">No recent searches found.</p>
+                    </div>
+                </section>
+
+                <!-- Loading overlay -->
+                <div class="loading-overlay hidden" id="loading-overlay">
+                    <div class="loader-card">
+                        <div class="radar-spin">
+                            <div class="radar-line"></div>
+                        </div>
+                        <h3 id="loader-title">Analyzing Flight Schedule</h3>
+                        <ul class="loader-steps">
+                            <li id="step-coords" class="pending"><i class="fa-solid fa-circle-notch fa-spin"></i> Resolving coordinates...</li>
+                            <li id="step-weather" class="pending"><i class="fa-solid fa-circle-notch"></i> Fetching live weather forecasts...</li>
+                            <li id="step-distance" class="pending"><i class="fa-solid fa-circle-notch"></i> Computing geodesic distance...</li>
+                            <li id="step-model" class="pending"><i class="fa-solid fa-circle-notch"></i> Executing LightGBM model...</li>
+                        </ul>
+                    </div>
                 </div>
-                <form id="delay-form">
-                    <div class="form-grid">
-                        <!-- Origin Airport -->
-                        <div class="input-group">
-                            <label for="start_airport">Starting Airport</label>
-                            <div class="select-wrapper">
-                                <i class="fa-solid fa-location-dot input-icon"></i>
-                                <select id="start_airport" required>
-                                    <option value="" disabled selected>Select Origin Airport...</option>
-                                </select>
+
+                <!-- Results Card -->
+                <section class="card results-card hidden animate-slide-up" id="results-section">
+                    <div class="results-header">
+                        <button class="back-btn" id="back-btn">
+                            <i class="fa-solid fa-arrow-left"></i> Modify Flight
+                        </button>
+                        <h2>Prediction Dashboard</h2>
+                    </div>
+
+                    <!-- Current Search Overview -->
+                    <div class="sub-card" style="margin-bottom: 1.5rem; background: rgba(99, 102, 241, 0.05); border-color: rgba(99, 102, 241, 0.2);">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                            <div style="flex: 1; text-align: left; font-size: 1.1rem; font-weight: 600;">
+                                <i class="fa-solid fa-plane-departure" style="color: var(--primary); margin-right: 0.5rem;"></i> <span id="res-start-airport">--</span>
+                            </div>
+                            <div style="padding: 0 1rem; color: var(--primary);">
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </div>
+                            <div style="flex: 1; text-align: right; font-size: 1.1rem; font-weight: 600;">
+                                <span id="res-end-airport">--</span> <i class="fa-solid fa-plane-arrival" style="color: var(--primary); margin-left: 0.5rem;"></i>
                             </div>
                         </div>
-
-                        <!-- Destination Airport -->
-                        <div class="input-group">
-                            <label for="end_airport">Ending Airport</label>
-                            <div class="select-wrapper">
-                                <i class="fa-solid fa-location-crosshairs input-icon"></i>
-                                <select id="end_airport" required>
-                                    <option value="" disabled selected>Select Destination Airport...</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Airline Carrier -->
-                        <div class="input-group full-width">
-                            <label for="carrier">Airline Carrier</label>
-                            <div class="select-wrapper">
-                                <i class="fa-solid fa-ticket input-icon"></i>
-                                <select id="carrier" required>
-                                    <option value="" disabled selected>Select Carrier...</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Date -->
-                        <div class="input-group">
-                            <label for="date">Departure Date</label>
-                            <div class="input-wrapper">
-                                <i class="fa-solid fa-calendar-days input-icon"></i>
-                                <input type="date" id="date" required>
-                            </div>
-                        </div>
-
-                        <!-- Time -->
-                        <div class="input-group">
-                            <label for="time">Scheduled Departure Time</label>
-                            <div class="input-wrapper">
-                                <i class="fa-solid fa-clock input-icon"></i>
-                                <input type="time" id="time" required>
-                            </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; color: var(--text-muted); font-size: 0.95rem; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1rem;">
+                            <span><i class="fa-regular fa-calendar" style="margin-right: 0.3rem;"></i> <span id="res-date">--</span></span>
+                            <span><i class="fa-regular fa-clock" style="margin-right: 0.3rem;"></i> <span id="res-time">--</span></span>
+                            <span><i class="fa-solid fa-ticket" style="margin-right: 0.3rem;"></i> <span id="res-carrier">--</span></span>
                         </div>
                     </div>
 
-                    <button type="submit" class="submit-btn" id="submit-btn">
-                        <span>Predict Delay Probability</span>
-                        <i class="fa-solid fa-circle-arrow-right btn-icon"></i>
-                    </button>
-                </form>
-            </section>
+                    <div class="results-grid">
+                        <!-- Left Panel: Gauge & Factors -->
+                        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                            
+                            <!-- Gauge Card -->
+                            <div class="sub-card gauge-container" style="padding: 1.5rem 0;">
+                                <div class="gauge-card">
+                                    <div class="gauge-track">
+                                        <div class="gauge-fill" id="gauge-fill"></div>
+                                        <div class="gauge-cover">
+                                            <span class="gauge-percent" id="gauge-value">0%</span>
+                                            <span class="gauge-label">Delay Risk</span>
+                                        </div>
+                                    </div>
+                                    <h3 id="risk-category" class="risk-low">Low Risk</h3>
+                                    <p id="risk-desc">Your flight is highly likely to depart on schedule.</p>
+                                </div>
+                            </div>
 
-            <!-- Recent Searches Card -->
-            <section class="card form-card animate-slide-up" id="history-section" style="margin-top: 2rem;">
-                <div class="card-header">
-                    <i class="fa-solid fa-clock-rotate-left card-icon"></i>
-                    <h2>Recent Searches</h2>
-                </div>
-                <div id="history-list" class="history-grid">
-                    <p class="history-empty" style="color: var(--text-muted); text-align: center; padding: 1rem;">No recent searches found.</p>
-                </div>
-            </section>
+                            <!-- Risk Factors Breakdown -->
+                            <div class="sub-card">
+                                <h4><i class="fa-solid fa-chart-bar"></i> Risk Factors Breakdown</h4>
+                                <div class="factor-breakdown-card" id="factors-container">
+                                    <!-- Weather Impact -->
+                                    <div class="factor-row">
+                                        <div class="factor-info">
+                                            <span class="factor-label"><i class="fa-solid fa-cloud-sun-rain"></i> Weather Factor</span>
+                                            <span class="factor-value" id="factor-weather-val">Low Impact</span>
+                                        </div>
+                                        <div class="factor-progress">
+                                            <div class="factor-progress-fill low" id="factor-weather-fill" style="width: 20%;"></div>
+                                        </div>
+                                    </div>
+                                    <!-- Airline Reliability -->
+                                    <div class="factor-row">
+                                        <div class="factor-info">
+                                            <span class="factor-label"><i class="fa-solid fa-plane-up"></i> Carrier Reliability</span>
+                                            <span class="factor-value" id="factor-carrier-val">Excellent</span>
+                                        </div>
+                                        <div class="factor-progress">
+                                            <div class="factor-progress-fill low" id="factor-carrier-fill" style="width: 15%;"></div>
+                                        </div>
+                                    </div>
+                                    <!-- Time of Day Congestion -->
+                                    <div class="factor-row">
+                                        <div class="factor-info">
+                                            <span class="factor-label"><i class="fa-solid fa-clock"></i> Time-Slot Load</span>
+                                            <span class="factor-value" id="factor-time-val">Moderate</span>
+                                        </div>
+                                        <div class="factor-progress">
+                                            <div class="factor-progress-fill med" id="factor-time-fill" style="width: 45%;"></div>
+                                        </div>
+                                    </div>
+                                    <!-- Day of Week Congestion -->
+                                    <div class="factor-row">
+                                        <div class="factor-info">
+                                            <span class="factor-label"><i class="fa-solid fa-calendar-day"></i> Weekday Rush</span>
+                                            <span class="factor-value" id="factor-day-val">Low</span>
+                                        </div>
+                                        <div class="factor-progress">
+                                            <div class="factor-progress-fill low" id="factor-day-fill" style="width: 25%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-            <!-- Loading overlay -->
-            <div class="loading-overlay hidden" id="loading-overlay">
-                <div class="loader-card">
-                    <div class="radar-spin">
-                        <div class="radar-line"></div>
+                        </div>
+
+                        <!-- Right Panel: Route Visualizer & Weather Details & Digital Pass -->
+                        <div class="metrics-details">
+                            
+                            <!-- Route Visualizer -->
+                            <div class="route-visualizer">
+                                <div class="route-track">
+                                    <div class="route-line"></div>
+                                    <div class="route-plane"><i class="fa-solid fa-plane"></i></div>
+                                    <div class="route-node origin">
+                                        <i class="fa-solid fa-plane-departure"></i>
+                                        <span id="route-start-code">DEL</span>
+                                    </div>
+                                    <div class="route-node destination">
+                                        <i class="fa-solid fa-plane-arrival"></i>
+                                        <span id="route-end-code">BOM</span>
+                                    </div>
+                                </div>
+                                <div class="route-meta">
+                                    <div class="route-meta-item">
+                                        <span>Geodesic Distance</span>
+                                        <span class="val" id="res-distance">--</span>
+                                    </div>
+                                    <div class="route-meta-item" style="text-align: center;">
+                                        <span>Estimated Duration</span>
+                                        <span class="val" id="res-duration">--</span>
+                                    </div>
+                                    <div class="route-meta-item" style="text-align: right;">
+                                        <span>Distance Group</span>
+                                        <span class="val" id="res-dist-group">--</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Weather Card -->
+                            <div class="sub-card weather-metrics">
+                                <h4><i class="fa-solid fa-cloud-sun"></i> Origin Airport Weather Condition</h4>
+                                <div class="weather-grid-details">
+                                    <div class="weather-item">
+                                        <i class="fa-solid fa-temperature-high weather-icon temp"></i>
+                                        <div class="weather-data">
+                                            <span class="label">Max Temp</span>
+                                            <span class="value" id="res-tmax">--</span>
+                                        </div>
+                                    </div>
+                                    <div class="weather-item">
+                                        <i class="fa-solid fa-wind weather-icon wind"></i>
+                                        <div class="weather-data">
+                                            <span class="label">Wind Speed</span>
+                                            <span class="value" id="res-wind">--</span>
+                                        </div>
+                                    </div>
+                                    <div class="weather-item">
+                                        <i class="fa-solid fa-cloud-rain weather-icon rain"></i>
+                                        <div class="weather-data">
+                                            <span class="label">Precipitation</span>
+                                            <span class="value" id="res-prcp">--</span>
+                                        </div>
+                                    </div>
+                                    <div class="weather-item">
+                                        <i class="fa-solid fa-snowflake weather-icon snow"></i>
+                                        <div class="weather-data">
+                                            <span class="label">Snowfall</span>
+                                            <span class="value" id="res-snow">--</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="fallback-note hidden" id="weather-fallback-note">
+                                    <i class="fa-solid fa-circle-exclamation"></i> Live weather API offline. Using fallback seasonal statistics.
+                                </div>
+                            </div>
+
+                            <!-- Digital Boarding Pass -->
+                            <div class="digital-boarding-pass">
+                                <div class="boarding-pass-main">
+                                    <div class="pass-header">
+                                        <div class="airline" id="pass-airline-name">
+                                            <i class="fa-solid fa-plane-departure"></i>
+                                            <span>IndiGo</span>
+                                        </div>
+                                        <div class="flight-number" id="pass-flight-number">6E-2051</div>
+                                    </div>
+                                    
+                                    <div class="pass-flight-path">
+                                        <div class="pass-airport">
+                                            <span class="code" id="pass-origin-code">DEL</span>
+                                            <span class="city" id="pass-origin-name">Delhi</span>
+                                        </div>
+                                        <div class="pass-plane-icon">
+                                            <i class="fa-solid fa-plane"></i>
+                                        </div>
+                                        <div class="pass-airport" style="text-align: right;">
+                                            <span class="code" id="pass-dest-code">BOM</span>
+                                            <span class="city" id="pass-dest-name">Mumbai</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="pass-details">
+                                        <div class="pass-detail-item">
+                                            <span class="label">Passenger</span>
+                                            <span class="val" id="pass-passenger-name">Passenger</span>
+                                        </div>
+                                        <div class="pass-detail-item">
+                                            <span class="label">Depart Date</span>
+                                            <span class="val" id="pass-date">2026-06-15</span>
+                                        </div>
+                                        <div class="pass-detail-item">
+                                            <span class="label">Time (Sched)</span>
+                                            <span class="val" id="pass-time">12:00</span>
+                                        </div>
+                                        <div class="pass-detail-item">
+                                            <span class="label">Time Block</span>
+                                            <span class="val" id="res-dep-block">1200-1259</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="pass-risk-stamp" id="pass-risk-stamp">LOW RISK</div>
+                                    
+                                    <div class="boarding-pass-barcode" id="pass-barcode">
+                                        <!-- Generated barcode bars -->
+                                    </div>
+                                </div>
+                                <div class="boarding-pass-stub">
+                                    <div class="pass-qrcode" id="pass-qrcode-container">
+                                        <!-- Mock QR Code SVG will render here -->
+                                        <svg viewBox="0 0 100 100">
+                                            <rect width="100" height="100" fill="none"/>
+                                            <rect x="5" y="5" width="20" height="20" fill="currentColor"/>
+                                            <rect x="10" y="10" width="10" height="10" fill="white"/>
+                                            <rect x="75" y="5" width="20" height="20" fill="currentColor"/>
+                                            <rect x="80" y="10" width="10" height="10" fill="white"/>
+                                            <rect x="5" y="75" width="20" height="20" fill="currentColor"/>
+                                            <rect x="10" y="80" width="10" height="10" fill="white"/>
+                                            <!-- random patterns -->
+                                            <rect x="35" y="15" width="10" height="30" fill="currentColor"/>
+                                            <rect x="50" y="5" width="15" height="10" fill="currentColor"/>
+                                            <rect x="65" y="45" width="20" height="15" fill="currentColor"/>
+                                            <rect x="35" y="60" width="25" height="10" fill="currentColor"/>
+                                            <rect x="70" y="75" width="15" height="15" fill="currentColor"/>
+                                            <rect x="40" y="80" width="20" height="5" fill="currentColor"/>
+                                            <rect x="15" y="35" width="10" height="10" fill="currentColor"/>
+                                        </svg>
+                                    </div>
+                                    <div class="stub-details">
+                                        <span class="stub-route" id="pass-stub-route">DEL - BOM</span>
+                                        <span class="stub-flight" id="pass-stub-flight">6E-2051</span>
+                                    </div>
+                                    <span class="stub-risk-badge" id="pass-stub-badge">Low Risk</span>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
-                    <h3 id="loader-title">Analyzing Flight Schedule</h3>
-                    <ul class="loader-steps">
-                        <li id="step-coords" class="pending"><i class="fa-solid fa-circle-notch fa-spin"></i> Resolving coordinates...</li>
-                        <li id="step-weather" class="pending"><i class="fa-solid fa-circle-notch"></i> Fetching live weather forecasts...</li>
-                        <li id="step-distance" class="pending"><i class="fa-solid fa-circle-notch"></i> Computing geodesic distance...</li>
-                        <li id="step-model" class="pending"><i class="fa-solid fa-circle-notch"></i> Executing LightGBM model...</li>
-                    </ul>
+                </section>
+            </div>
+
+            <!-- TAB 2: LIVE FLIGHT BOARD -->
+            <div id="liveboard-tab" class="tab-panel">
+                <header class="app-header animate-fade-in" style="text-align: left; margin-bottom: 2rem;">
+                    <h1 style="font-family: 'Outfit', sans-serif; font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem;">Live Departures Board</h1>
+                    <p class="brand-tagline">Real-time simulation of flight schedules, status, and AeroPredict risk alerts.</p>
+                </header>
+
+                <div class="card animate-slide-up">
+                    <div class="live-board-controls">
+                        <div class="search-input-wrapper">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="live-board-search" placeholder="Search by city, airport, or flight number...">
+                        </div>
+                        
+                        <div class="status-tabs">
+                            <button class="status-tab active" data-filter="all">All Flights</button>
+                            <button class="status-tab" data-filter="on-time">On Time</button>
+                            <button class="status-tab" data-filter="delayed">Delayed</button>
+                            <button class="status-tab" data-filter="boarding">Boarding</button>
+                        </div>
+                    </div>
+
+                    <div class="live-table-container">
+                        <table class="live-table">
+                            <thead>
+                                <tr>
+                                    <th>Flight</th>
+                                    <th>Carrier</th>
+                                    <th>Origin / Dest</th>
+                                    <th>Departure</th>
+                                    <th>Delay Risk</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="live-board-tbody">
+                                <!-- Dynamically populated simulated flights -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 
-            <!-- Results Card -->
-            <section class="card results-card hidden animate-slide-up" id="results-section">
-                <div class="results-header">
-                    <button class="back-btn" id="back-btn">
-                        <i class="fa-solid fa-arrow-left"></i> Modify Flight
-                    </button>
-                    <h2>Prediction Dashboard</h2>
-                </div>
+            <!-- TAB 3: AIRPORT ANALYTICS -->
+            <div id="analytics-tab" class="tab-panel">
+                <header class="app-header animate-fade-in" style="text-align: left; margin-bottom: 2rem;">
+                    <h1 style="font-family: 'Outfit', sans-serif; font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem;">Airport &amp; Carrier Analytics</h1>
+                    <p class="brand-tagline">Historical reliability matrices and congestion ratings based on the model dataset.</p>
+                </header>
 
-                <!-- Current Search Overview -->
-                <div class="sub-card" style="margin-bottom: 2rem; background: rgba(99, 102, 241, 0.05); border-color: rgba(99, 102, 241, 0.2);">
-                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
-                        <div style="flex: 1; text-align: left; font-size: 1.1rem; font-weight: 600;">
-                            <i class="fa-solid fa-plane-departure" style="color: var(--primary); margin-right: 0.5rem;"></i> <span id="res-start-airport">--</span>
+                <div class="analytics-grid">
+                    <!-- Carrier Performance -->
+                    <div class="card animate-slide-up">
+                        <div class="card-header">
+                            <i class="fa-solid fa-award card-icon"></i>
+                            <h2>Carrier On-Time Reliability</h2>
                         </div>
-                        <div style="padding: 0 1rem; color: var(--primary);">
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </div>
-                        <div style="flex: 1; text-align: right; font-size: 1.1rem; font-weight: 600;">
-                            <span id="res-end-airport">--</span> <i class="fa-solid fa-plane-arrival" style="color: var(--primary); margin-left: 0.5rem;"></i>
-                        </div>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center; color: var(--text-muted); font-size: 0.95rem; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 1rem;">
-                        <span><i class="fa-regular fa-calendar" style="margin-right: 0.3rem;"></i> <span id="res-date">--</span></span>
-                        <span><i class="fa-regular fa-clock" style="margin-right: 0.3rem;"></i> <span id="res-time">--</span></span>
-                        <span><i class="fa-solid fa-ticket" style="margin-right: 0.3rem;"></i> <span id="res-carrier">--</span></span>
-                    </div>
-                </div>
-
-                <div class="results-grid">
-                    <!-- Gauge Score -->
-                    <div class="gauge-container">
-                        <div class="gauge-card">
-                            <div class="gauge-track">
-                                <div class="gauge-fill" id="gauge-fill"></div>
-                                <div class="gauge-cover">
-                                    <span class="gauge-percent" id="gauge-value">0%</span>
-                                    <span class="gauge-label">Delay Risk</span>
-                                </div>
-                            </div>
-                            <h3 id="risk-category" class="risk-low">Low Risk</h3>
-                            <p id="risk-desc">Your flight is highly likely to depart on schedule.</p>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">Percentage of flights arriving within 15 minutes of scheduled time based on dataset averages.</p>
+                        
+                        <div class="stats-card-list" id="carrier-stats-list">
+                            <!-- Populated by JS -->
                         </div>
                     </div>
 
-                    <!-- Metrics details -->
-                    <div class="metrics-details">
-                        <!-- Flight Details Card -->
-                        <div class="sub-card flight-metrics">
-                            <h4><i class="fa-solid fa-plane-departure"></i> Flight Details</h4>
-                            <div class="metric-row">
-                                <span class="label">Distance:</span>
-                                <span class="value" id="res-distance">Calculating...</span>
-                            </div>
-                            <div class="metric-row">
-                                <span class="label">Distance Group:</span>
-                                <span class="value" id="res-dist-group">--</span>
-                            </div>
-                            <div class="metric-row">
-                                <span class="label">Departure Block:</span>
-                                <span class="value" id="res-dep-block">--</span>
-                            </div>
+                    <!-- Airport Delays -->
+                    <div class="card animate-slide-up" style="animation-delay: 0.1s;">
+                        <div class="card-header">
+                            <i class="fa-solid fa-triangle-exclamation card-icon"></i>
+                            <h2>Airport Congestion &amp; Delay Risk</h2>
                         </div>
-
-                        <!-- Weather Details Card -->
-                        <div class="sub-card weather-metrics">
-                            <h4><i class="fa-solid fa-cloud-sun"></i> Origin Airport Weather</h4>
-                            <div class="weather-grid-details">
-                                <div class="weather-item">
-                                    <i class="fa-solid fa-temperature-high weather-icon temp"></i>
-                                    <div class="weather-data">
-                                        <span class="label">Max Temp</span>
-                                        <span class="value" id="res-tmax">--</span>
-                                    </div>
-                                </div>
-                                <div class="weather-item">
-                                    <i class="fa-solid fa-wind weather-icon wind"></i>
-                                    <div class="weather-data">
-                                        <span class="label">Wind Speed</span>
-                                        <span class="value" id="res-wind">--</span>
-                                    </div>
-                                </div>
-                                <div class="weather-item">
-                                    <i class="fa-solid fa-cloud-rain weather-icon rain"></i>
-                                    <div class="weather-data">
-                                        <span class="label">Precipitation</span>
-                                        <span class="value" id="res-prcp">--</span>
-                                    </div>
-                                </div>
-                                <div class="weather-item">
-                                    <i class="fa-solid fa-snowflake weather-icon snow"></i>
-                                    <div class="weather-data">
-                                        <span class="label">Snowfall</span>
-                                        <span class="value" id="res-snow">--</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="fallback-note hidden" id="weather-fallback-note">
-                                <i class="fa-solid fa-circle-exclamation"></i> Real-time weather API offline. Using fallback seasonal statistics.
-                            </div>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">Congestion levels based on departures volume and average weather delay correlations.</p>
+                        
+                        <div class="stats-card-list" id="airport-stats-list">
+                            <!-- Populated by JS -->
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
+
+            <!-- TAB 4: TRAVEL GUIDE -->
+            <div id="guide-tab" class="tab-panel">
+                <header class="app-header animate-fade-in" style="text-align: left; margin-bottom: 2rem;">
+                    <h1 style="font-family: 'Outfit', sans-serif; font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem;">Smart Travel Guide</h1>
+                    <p class="brand-tagline">Actionable tips, checklists, and safety guides customized for your forecasted delay risk.</p>
+                </header>
+
+                <div class="guide-grid">
+                    <!-- Low Risk Guide -->
+                    <div class="card animate-slide-up">
+                        <div class="card-header" style="border-bottom-color: rgba(16, 185, 129, 0.2);">
+                            <i class="fa-solid fa-circle-check" style="color: #10b981; font-size: 1.3rem;"></i>
+                            <h2>Low Delay Risk Plan</h2>
+                        </div>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">Suggested protocol for flights with less than 20% delay probability.</p>
+                        <ul class="guide-checklist">
+                            <li class="checked"><i class="fa-solid fa-check-double"></i> <span><strong>Standard Departure:</strong> Arrive 2 hours prior to flight time.</span></li>
+                            <li class="checked"><i class="fa-solid fa-check-double"></i> <span><strong>Web Check-in:</strong> Pre-select your boarding pass and drop luggage early.</span></li>
+                            <li><i class="fa-solid fa-square-check"></i> <span><strong>Lounge Access:</strong> No need to budget excessive lounge wait times.</span></li>
+                            <li><i class="fa-solid fa-square-check"></i> <span><strong>Connections:</strong> Tight layovers (45-60 mins) are generally safe.</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- Moderate Risk Guide -->
+                    <div class="card animate-slide-up" style="animation-delay: 0.1s;">
+                        <div class="card-header" style="border-bottom-color: rgba(245, 158, 11, 0.2);">
+                            <i class="fa-solid fa-circle-exclamation" style="color: #f59e0b; font-size: 1.3rem;"></i>
+                            <h2>Moderate Delay Risk Plan</h2>
+                        </div>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">Action plan for flights with 20% - 50% delay probability.</p>
+                        <ul class="guide-checklist">
+                            <li class="checked"><i class="fa-solid fa-check-double"></i> <span><strong>Monitor Status:</strong> Check airline app every 30 mins before leaving for the airport.</span></li>
+                            <li class="checked"><i class="fa-solid fa-check-double"></i> <span><strong>Carry-on Preferred:</strong> Travel with carry-on only if possible to preserve flexibility if re-routing is required.</span></li>
+                            <li><i class="fa-solid fa-square-check"></i> <span><strong>Power Backup:</strong> Charge all electronic devices and bring a power bank.</span></li>
+                            <li><i class="fa-solid fa-square-check"></i> <span><strong>Backup Connections:</strong> Double check options for later flights in case you miss a connection.</span></li>
+                        </ul>
+                    </div>
+
+                    <!-- High Risk Guide -->
+                    <div class="card animate-slide-up" style="animation-delay: 0.2s;">
+                        <div class="card-header" style="border-bottom-color: rgba(239, 68, 68, 0.2);">
+                            <i class="fa-solid fa-triangle-exclamation" style="color: #ef4444; font-size: 1.3rem;"></i>
+                            <h2>High Delay Risk Protocol</h2>
+                        </div>
+                        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">Essential steps for flights with greater than 50% delay probability.</p>
+                        <ul class="guide-checklist">
+                            <li class="checked"><i class="fa-solid fa-circle-exclamation" style="color: #ef4444;"></i> <span><strong>Alternative Flights:</strong> Bookmark alternative departures by the same carrier.</span></li>
+                            <li class="checked"><i class="fa-solid fa-circle-exclamation" style="color: #ef4444;"></i> <span><strong>Travel Insurance:</strong> Have your policy details handy for meal/hotel compensation if delays exceed 4 hours.</span></li>
+                            <li><i class="fa-solid fa-square-check"></i> <span><strong>Comfort kit:</strong> Pack a light jacket, snacks, and any essential medications in your hand baggage.</span></li>
+                            <li><i class="fa-solid fa-square-check"></i> <span><strong>Lounge Access:</strong> If eligible, plan to wait in a lounge as gate delays could be prolonged.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
         </main>
-        
-        <!-- Footer removed as per user request -->
     </div>
 
     <!-- Custom Script -->

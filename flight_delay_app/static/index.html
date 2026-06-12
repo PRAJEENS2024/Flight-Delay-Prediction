@@ -75,9 +75,128 @@
                     <p>Get your probability score in milliseconds with interactive UI.</p>
                 </div>
             </div>
+
+            <!-- Live status banner -->
+            <div class="live-status-banner">
+                <span class="banner-title"><span class="live-indicator"></span>Live Airport Status</span>
+                <div class="banner-ticker">
+                    <div class="ticker-item">
+                        <span class="ticker-label">Delhi (DEL)</span>
+                        <span class="ticker-value" style="color: #10b981;">Normal Load</span>
+                    </div>
+                    <div class="ticker-item">
+                        <span class="ticker-label">Mumbai (BOM)</span>
+                        <span class="ticker-value" style="color: #f59e0b;">Moderate Delay Risk</span>
+                    </div>
+                    <div class="ticker-item">
+                        <span class="ticker-label">Bangalore (BLR)</span>
+                        <span class="ticker-value" style="color: #10b981;">Normal Load</span>
+                    </div>
+                    <div class="ticker-item text-hidden-mobile">
+                        <span class="ticker-label">Chennai (MAA)</span>
+                        <span class="ticker-value" style="color: #10b981;">Normal Load</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- How It Works timeline -->
+            <section id="how-it-works" style="margin-top: 6rem; width: 100%;">
+                <h2 style="font-family: 'Outfit', sans-serif; font-size: 2.2rem; text-align: center; margin-bottom: 1rem; font-weight: 700;">How AeroPredict Works</h2>
+                <p style="color: var(--text-muted); text-align: center; font-size: 1rem; max-width: 600px; margin: 0 auto 3rem;">We integrate weather feeds with airport metrics to compute departure delay risks.</p>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-badge">1</div>
+                        <div class="timeline-card">
+                            <h4>Enter Schedule Details</h4>
+                            <p>Select your origin, destination, carrier, and flight departure block. These determine airport traffic parameters.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-badge">2</div>
+                        <div class="timeline-card">
+                            <h4>Query Weather Forecast</h4>
+                            <p>We query historical statistics and real-time Open-Meteo forecasts at the precise departure coordinates.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-badge">3</div>
+                        <div class="timeline-card">
+                            <h4>Run Predictive Model</h4>
+                            <p>Our LightGBM model processes coordinates, carriers, and forecast variables to deliver your risk percentage in milliseconds.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FAQ accordion -->
+            <section id="faq" class="faq-section">
+                <h2 class="faq-title">Frequently Asked Questions</h2>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How accurate are the predictions?</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            AeroPredict leverages an advanced LightGBM model trained on a comprehensive historical flight record dataset. It compiles airport density schedules and live weather warnings (precipitation, wind intensity, temperatures) to ensure accurate, granular risk predictions.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Where is the weather data sourced from?</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            Weather values are gathered directly from the Open-Meteo Weather API using coordinates for each origin airport. If the meteorological server is offline, the system falls back to seasonal averages.
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What should I do if my flight is flagged high risk?</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            If your delay probability exceeds 50%, we recommend installing the carrier app for real-time notifications, traveling with carry-on bags to preserve re-routing flexibility, and reviewing the smart recommendations in the Travel Guide.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Landing footer -->
+            <footer class="landing-footer">
+                <div class="footer-top">
+                    <div class="footer-brand">
+                        <a href="/" class="logo" style="text-decoration: none; justify-content: flex-start;">
+                            <i class="fa-solid fa-plane-departure brand-icon"></i>
+                            <span class="brand-name">Aero<span>Predict</span></span>
+                        </a>
+                        <p class="desc">Bringing transparency to flight scheduling through premium artificial intelligence and atmospheric analytics.</p>
+                    </div>
+                    <div class="footer-links-grid">
+                        <div class="footer-column">
+                            <h5>Product</h5>
+                            <a href="#how-it-works">How It Works</a>
+                            <a href="/signup">Forecaster Tool</a>
+                            <a href="#faq">FAQ Page</a>
+                        </div>
+                        <div class="footer-column">
+                            <h5>Resources</h5>
+                            <a href="#">API Documentation</a>
+                            <a href="#">Weather Center</a>
+                            <a href="#">Privacy Policy</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <span>&copy; 2026 AeroPredict Inc. All rights reserved.</span>
+                    <div class="social-links">
+                        <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                        <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="#"><i class="fa-brands fa-github"></i></a>
+                    </div>
+                </div>
+            </footer>
         </main>
-        
-        <!-- Footer removed as per user request -->
     </div>
     <script src="/script.js?v=4"></script>
 </body>
